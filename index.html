@@ -7,6 +7,7 @@
     <meta name="description" content="Skunkworks Lab Services - Innovative solutions for complex problems in engineering, education, IT, and business development.">
     <meta name="keywords" content="Skunkworks, engineering, IT solutions, business automation, tech education">
     <link href="https://github.com/skunkworksza/www/blob/main/assets/skunkworks/logo-skunkworks-trans%2040%20%C3%97%2040%20px.svg?raw=true" rel="icon" type="image/svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Fallback styles in case external CSS doesn't load */
@@ -24,14 +25,13 @@
             color: #fcfcfc;
             padding: 1rem;
             text-align: center;
+        }
         h1 {
             color: #ffffff;
         }
-        
         h2, h3 {
             color: #010101;
         }
-
         .content {
             margin-top: 2rem;
         }
@@ -48,7 +48,6 @@
             padding: 1rem;
             margin-top: 1rem;
             border-left: 4px solid #03a9f4;
-            color: white;  /* This will set the text color to white */
         }
         .cta-button {
             display: inline-block;
@@ -77,6 +76,40 @@
                 padding: 1rem;
             }
         }
+        /* New styles for enhanced features */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul.show {
+                display: flex;
+            }
+        }
+        .social-icons {
+            margin-top: 1rem;
+        }
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: #3498db;
+        }
     </style>
 </head>
 <body>
@@ -84,6 +117,9 @@
         <img src="skunkworks-lab-services-logo.svg" alt="Skunkworks Lab Services Logo" class="logo">
         <h1>Skunkworks Lab Services</h1>
         <p>Innovative Solutions for Complex Problems</p>
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
     <nav>
@@ -155,9 +191,14 @@
         </div>
     </div>
 
-    <footer>
+  <footer>
         <p>&copy; 2024 Skunkworks Lab Services. All rights reserved.</p>
         <p>Contact us: <a href="mailto:info@skunkworks-labs.com">info@skunkworks-labs.com</a> | (555) 123-4567</p>
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
