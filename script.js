@@ -11,5 +11,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 
-    // Add more interactivity here as needed
+    // Intersection Observer for fade-in effect
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.case-study').forEach(caseStudy => {
+        observer.observe(caseStudy);
+    });
+
+    // Parallax effect for header
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.pageYOffset;
+        document.querySelector('header').style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+    });
+
+    // Toggle mobile menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav ul');
+    
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
+    }
 });
