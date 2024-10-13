@@ -1,6 +1,16 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navUl = document.querySelector('nav ul');
+    
+    if (menuToggle && navUl) {
+        menuToggle.addEventListener('click', () => {
+            navUl.classList.toggle('show');
+        });
+    }
+    
+document.addEventListener('DOMContentLoaded', (event) => {
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
