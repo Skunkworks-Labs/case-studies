@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adversary Analysis Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2, h3 {
+            color: #444;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        ul li {
+            margin: 0.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f9;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Adversary Analysis Report</h1>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>1. Executive Summary</h2>
+            <p>
+                This report details a phishing campaign employing malicious links and explicit content as bait. The adversary
+                has used URL shortening, redirections, and inappropriate visual content to lure victims into interacting
+                with the malicious domain <strong>alexa-stream.com</strong>. The infrastructure indicates a level of
+                sophistication, with multiple hosting services across various geographic regions, cookie tracking, and
+                potentially malicious scripts. The identified campaign presents significant threats, including potential
+                credential theft, data exfiltration, and system compromise.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Indicators of Compromise (IoCs)</h2>
+            <h3>URLs and Domains</h3>
+            <ul>
+                <li><strong>Shortened URL:</strong> hxxps://cutt.ly/hw0Vd7xa</li>
+                <li><strong>Redirect Destination:</strong> hxxps://alexa-stream.com</li>
+                <li><strong>Connected Domains/Subdomains:</strong>
+                    <ul>
+                        <li>ibb.co</li>
+                        <li>clients2.googleusercontent.com</li>
+                        <li>fonts.googleapis.com</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>IP Addresses</h3>
+            <ul>
+                <li>91.215.152.19 (Bulgaria, ASN 59729, Green Floid LLC)</li>
+                <li>104.22.1.232 (United States, Cloudflare)</li>
+                <li>142.251.46.161 (United States, Google)</li>
+            </ul>
+            <h3>Cookies</h3>
+            <ul>
+                <li>7b7b8</li>
+                <li>_subid</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Threat Actor Profile</h2>
+            <h3>3.1 Objectives</h3>
+            <ul>
+                <li><strong>Credential Harvesting:</strong> Using phishing websites to trick victims into entering sensitive information.</li>
+                <li><strong>Data Collection:</strong> Employing tracking cookies and JavaScript to collect behavioral data.</li>
+                <li><strong>Monetization via Exploitation:</strong> Potentially selling collected data or using compromised accounts for financial gain.</li>
+            </ul>
+
+            <h3>3.2 Techniques</h3>
+            <ol>
+                <li>Phishing: Explicit content is used as bait to lure users into visiting the malicious site.</li>
+                <li>URL Shortening: cutt.ly is used to mask the destination, preventing users from identifying the true nature of the link.</li>
+                <li>Redirection: Users are redirected through multiple domains to obfuscate tracking and avoid detection.</li>
+                <li>DNS Masking: Domains are registered with providers known for limited enforcement, such as Green Floid LLC.</li>
+                <li>Malicious Cookies: The adversary sets tracking cookies for monitoring victim activity.</li>
+            </ol>
+
+            <h3>3.3 Geographic Distribution</h3>
+            <ul>
+                <li>Hosting services and IPs are distributed across Bulgaria, the United States, and Germany.</li>
+                <li>Adversaries rely on bulletproof hosting services in these regions, reducing the risk of takedown actions.</li>
+            </ul>
+
+            <h3>3.4 Tools and Infrastructure</h3>
+            <ul>
+                <li><strong>Web Technologies:</strong>
+                    <ul>
+                        <li>PHP and Nginx are used for serving the malicious content.</li>
+                        <li>TLS 1.3 and TLS 1.2 certificates ensure encrypted communication, adding a layer of legitimacy.</li>
+                    </ul>
+                </li>
+                <li><strong>Certificate Issuers:</strong>
+                    <ul>
+                        <li>Certificates are issued by “E6” and have a short lifespan of two months, indicating potential efforts to avoid detection.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Analysis of the Infrastructure</h2>
+            <h3>4.1 Redirection Chain</h3>
+            <ol>
+                <li><strong>Initial Access:</strong> User clicks the shortened URL (cutt.ly).</li>
+                <li><strong>Redirection:</strong> Redirects to the phishing site alexa-stream.com hosted by Green Floid LLC in Bulgaria.</li>
+                <li><strong>Tracking and Monitoring:</strong> Cookies and scripts are executed to track the victim’s interaction.</li>
+            </ol>
+
+            <h3>4.2 Hosting and Domain Details</h3>
+            <ul>
+                <li><strong>cutt.ly:</strong> Uses Cloudflare for DNS, ensuring uptime and obfuscating the origin IP.</li>
+                <li><strong>alexa-stream.com:</strong>
+                    <ul>
+                        <li>Registered under Green Floid LLC, a provider known for its lax oversight.</li>
+                        <li>Hosted on servers in Bulgaria.</li>
+                        <li>SSL certificates (TLS 1.2) valid for two months, reducing the risk of certificate revocation.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Threat Assessment</h2>
+            <h3>5.1 Potential Impact</h3>
+            <ul>
+                <li>Credential Theft: Victims may unknowingly provide login credentials.</li>
+                <li>Financial Fraud: Collected credentials could lead to direct financial losses.</li>
+                <li>Data Privacy Breach: Sensitive personal data may be exfiltrated and sold.</li>
+                <li>Reputation Damage: Organizations could face reputational harm if employees or systems are compromised.</li>
+            </ul>
+
+            <h3>5.2 Attack Sophistication</h3>
+            <ul>
+                <li>Use of trusted technologies (PHP, Nginx, TLS).</li>
+                <li>Multi-region hosting and domain distribution.</li>
+                <li>Evasion tactics like URL shortening and short-lived SSL certificates.</li>
+            </ul>
+
+            <h3>5.3 Risk Level</h3>
+            <ul>
+                <li>High: For individual users interacting with the phishing campaign.</li>
+                <li>Moderate: For organizations implementing robust endpoint protection.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Recommendations</h2>
+            <h3>6.1 Preventative Measures</h3>
+            <ol>
+                <li><strong>DNS Filtering:</strong> Block access to cutt.ly, alexa-stream.com, and associated IPs at the network level.</li>
+                <li><strong>User Awareness:</strong>
+                    <ul>
+                        <li>Conduct phishing awareness training.</li>
+                        <li>Emphasize the risks of clicking on shortened URLs or explicit content.</li>
+                    </ul>
+                </li>
+                <li><strong>Endpoint Protection:</strong>
+                    <ul>
+                        <li>Deploy endpoint detection and response (EDR) solutions capable of identifying phishing attempts.</li>
+                        <li>Regularly update antivirus software.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>6.2 Incident Response</h3>
+            <ol>
+                <li><strong>Investigation:</strong>
+                    <ul>
+                        <li>Conduct forensic analysis on systems potentially exposed to the phishing campaign.</li>
+                        <li>Monitor network logs for connections to the IoCs listed.</li>
+                    </ul>
+                </li>
+                <li><strong>Containment:</strong>
+                    <ul>
+                        <li>Immediately isolate compromised devices from the network.</li>
+                        <li>Reset credentials for accounts potentially exposed.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>6.3 Long-Term Mitigation</h3>
+            <ol>
+                <li><strong>Secure Web Gateways:</strong>
+                    <ul>
+                        <li>Deploy gateways to inspect URLs for malicious content before allowing user access.</li>
+                    </ul>
+                </li>
+                <li><strong>Monitoring and Threat Intelligence:</strong>
+                    <ul>
+                        <li>Continuously monitor for similar phishing campaigns.</li>
+                        <li>Subscribe to threat intelligence feeds to stay updated on evolving tactics.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>7. Conclusion</h2>
+            <p>
+                This analysis underscores the threat posed by the phishing campaign targeting users with explicit bait and
+                obfuscated links. The adversary exhibits moderate sophistication, leveraging trusted infrastructure and
+                psychological tactics to deceive victims. Organizations and individuals must adopt a multi-layered defense
+                strategy to mitigate such threats.
+            </p>
+        </section>
+
+        <section>
+            <h2>8. Appendices</h2>
+            <h3>Appendix A: Full IoC List</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>IoC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Shortened URL</td>
+                        <td>hxxps://cutt.ly/hw0Vd7xa</td>
+                    </tr>
+                    <tr>
+                        <td>Phishing Site</td>
+                        <td>hxxps://alexa-stream.com</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>91.215.152.19 (Green Floid LLC)</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>104.22.1.232 (Cloudflare)</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>142.251.46.161 (Google)</td>
+                    </tr>
+                    <tr>
+                        <td>Cookie</td>
+                        <td>7b7b8</td>
+                    </tr>
+                    <tr>
+                        <td>Cookie</td>
+                        <td>_subid</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Appendix B: Sources</h3>
+            <ul>
+                <li>Hybrid-Analysis Sandbox Report</li>
+                <li>Criminal IP Domain Report</li>
+                <li>User-Provided Screenshots</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2024 Adversary Analysis Report</p>
+    </footer>
+</body>
+
+</html>
